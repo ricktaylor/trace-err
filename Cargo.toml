@@ -1,6 +1,6 @@
 [package]
 name = "trace-err"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "Unlicense"
 description = "A small extension to the tracing crate, which provides a single method 'trace_expect()' for Result<T, E> and Option<T>"
