@@ -1,4 +1,7 @@
 # Trace_Err
+
+![no_std](https://img.shields.io/badge/no__std-compatible-success)
+
 A small extension to the [tracing](https://crates.io/crates/tracing) crate, which provides a single method for `core::result::Result<T, E>` and `core::option::Option<T>`.
 
 Adds `trace_expect` to `Result`, which invoke the `tracing::error!` macro (in case of `Result::Err`) in _addition_ to unwrapping/expecting the `Result`.
@@ -34,3 +37,7 @@ let mut file = File::open("foo.txt").trace_expect("Error creating file");
 thread 'main' panicked at trace-err/lib.rs:87:39:
 Error creating file: Os { code: 2, kind: NotFound, message: "No such file or directory" }
 ```
+
+## no_std Support
+
+This crate is `no_std` compatible and can be used in embedded or bare-metal environments. The library uses only `core` types and has no heap allocations. All dependencies (`tracing` and its transitive dependencies) also support `no_std`.

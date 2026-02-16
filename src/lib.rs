@@ -34,6 +34,8 @@ Error creating file: Os { code: 2, kind: NotFound, message: "No such file or dir
 ```
 */
 
+#![no_std]
+
 pub trait TraceErrResult<T, E: core::fmt::Debug> {
     #[track_caller]
     fn trace_expect(self, msg: &str) -> T;
@@ -75,23 +77,22 @@ mod test {
     use super::*;
     use tracing_subscriber;
 
-    static INIT: std::sync::Once = std::sync::Once::new();
-
-    fn setup() {
-        tracing_subscriber::fmt::init();
+    fn init_subscriber() {
+        let _ = tracing_subscriber::fmt().with_test_writer().try_init();
+        // try_init() returns an error if already initialized, which we can ignore
     }
 
     #[test]
     #[should_panic(expected = "We caught: \"An Error!\"")]
     fn test_expect() {
-        INIT.call_once(setup);
+        init_subscriber();
         Result::<(), &str>::Err("An Error!").trace_expect("We caught");
     }
 
     #[test]
     #[should_panic(expected = "It's None!")]
     fn test_unwrap() {
-        INIT.call_once(setup);
+        init_subscriber();
         let _ = Option::<()>::None.trace_expect("It's None!");
     }
 }

@@ -1,20 +1,20 @@
 [package]
 name = "trace-err"
-version = "0.1.5"
+version = "1.0.0"
 edition = "2024"
 license = "Unlicense"
 description = "A small extension to the tracing crate, which provides a single method 'trace_expect()' for Result<T, E> and Option<T>"
 repository = "https://github.com/ricktaylor/trace-err"
 readme = "README.md"
 categories = ["development-tools::profiling", "no-std"]
-keywords = ["tracing", "logging"]
+keywords = ["tracing", "logging", "no-std", "embedded"]
 
 [lib]
 path = "src/lib.rs"
 crate-type = ["rlib"]
 
 [dependencies]
-tracing = "0.1"
+tracing = { version = "0.1", default-features = false }
 
 [dev-dependencies]
 tracing-subscriber = "0.3"
